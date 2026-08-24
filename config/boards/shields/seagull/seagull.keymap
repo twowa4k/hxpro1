@@ -1,0 +1,64 @@
+#include <../boards/shields/kyria/boards/nice_nano.overlay>
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
+
+#define NUMPAD 0
+#define BLUETOOTH 1
+
+/ {
+    keymap {
+        compatible = "zmk,keymap";
+
+        layer_numpad {
+            display-name = "Numpad";
+
+            // +---------------------------+                      
+            // |   7  |   8  |   9  |   *  |                      
+            // +------+------+------+------+
+            // |   4  |   5  |   6  |   /  |                      
+            // +------+------+------+------+-------+     
+            // |   1  |   2  |   3  |   *  | L-BT  |                     
+            // +------+------+------+------+-------+    
+            // |   0  |   .  |  +   |   =  |                          
+            // +------+------+------+------+  
+
+            bindings = <
+&kp N0  &kp N1     &kp N2  &kp N3
+&kp N4  &kp N5     &kp N6  &kp N7
+&kp L   &kp M      &kp B   &kp T   &kp R
+&kp UP  &kp RIGHT  &kp F   &kp G
+&kp H   &kp I      &kp K
+&kp L   &kp O      &kp P   &kp M
+&kp P   &kp M
+            >;
+
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
+        };
+
+        layer_bluetooth {
+            display-name = "BT";
+
+            // +---------------------------+                      
+            // |CLEAR |      |      |BTLDR |                      
+            // +------+------+------+------+
+            // |      |      |      |      |                      
+            // +------+------+------+------+-------+     
+            // | PF1  | PF2  |  PF3 |      | L-BT  |                      
+            // +------+------+------+------+-------+    
+            // |      |      |      |      |                          
+            // +------+------+------+------+     
+
+            bindings = <
+&kp N6  &kp N9  &kp N8  &kp N7
+&kp N6  &kp N5  &kp N4  &kp N3
+&kp N2  &kp N1  &kp N2  &kp N3  &kp N4
+&kp N5  &kp N6  &kp N7  &kp N9
+&kp N8  &kp N7  &kp N6
+&kp N6  &kp N8  &kp N7  &kp N6
+&kp P   &kp M
+            >;
+
+            sensor-bindings = <&inc_dec_kp LC(Z) LC(Y)>;
+        };
+    };
+};

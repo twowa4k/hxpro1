@@ -1,0 +1,238 @@
+#include <../boards/shields/kyria/boards/nice_nano.overlay>
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
+
+#define NUMPAD 0
+#define BLUETOOTH 1
+
+/ {
+    macros {
+        sz0: sz0 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&none &kp S &kp Z &kp N0 &kp RET>;
+            label = "SZ0";
+        };
+
+        sx0: sx0 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&none &kp S &kp X &kp N0 &kp RET>;
+            label = "SX0";
+        };
+
+        sy0: sy0 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&none &kp S &kp Y &kp N0 &kp RET>;
+            label = "SY0";
+        };
+
+        o0: o0 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&none &kp N0 &kp RET>;
+            label = "O0";
+        };
+
+        rz90: rz90 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&none &kp R &kp Z &kp N9 &kp N0 &kp RET>;
+            label = "RZ90";
+        };
+
+        rx90: rx90 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&none &kp R &kp X &kp N9 &kp N0 &kp RET>;
+            label = "RX90";
+        };
+
+        ry90: ry90 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&none &kp R &kp Y &kp N9 &kp N0 &kp RET>;
+            label = "RY90";
+        };
+
+        mum: mum {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&none &kp>, <&macro_press>, <&kp FSLH>;
+
+            label = "MUM";
+        };
+
+        taskmanager: taskmanager {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&none>, <&macro_press>, <&kp LC(LA(DELETE))>;
+
+            label = "TASKMANAGER";
+        };
+
+        w: w {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&none>;
+            label = "W";
+        };
+    };
+
+    keymap {
+        compatible = "zmk,keymap";
+
+        layer_0 {
+            display-name = "Numpad";
+
+            // +---------------------------+                      
+            // |   7  |   8  |   9  |   *  |                      
+            // +------+------+------+------+
+            // |   4  |   5  |   6  |   /  |                      
+            // +------+------+------+------+-------+     
+            // |   1  |   2  |   3  |   *  | L-BT  |                     
+            // +------+------+------+------+-------+    
+            // |   0  |   .  |  +   |   =  |                          
+            // +------+------+------+------+  
+
+            bindings = <
+                       &mo 2      &mo 1
+                                  &kp LALT
+
+&kp Y                             &mo 3
+&kp Z                             &mo 4
+            &kp LC(C)  &kp LC(V)
+&kp LG(N1)                        &kp LALT
+&kp W                             &kp N4
+
+            &kp UP
+&kp LEFT    &kp RET    &kp RIGHT
+            &kp DOWN
+
+                       &kp S
+&kp N5      &kp LALT              &kp ESC   &kp N6
+                       &kp LALT
+
+&none                  &none                &none
+            >;
+
+            sensor-bindings = <&inc_dec_kp LC(Y) LC(Z)>;
+        };
+
+        layer_bluetooth {
+            display-name = "BT";
+
+            // +---------------------------+                      
+            // |CLEAR |      |      |BTLDR |                      
+            // +------+------+------+------+
+            // |      |      |      |      |                      
+            // +------+------+------+------+-------+     
+            // | PF1  | PF2  |  PF3 |      | L-BT  |                      
+            // +------+------+------+------+-------+    
+            // |      |      |      |      |                          
+            // +------+------+------+------+     
+
+            bindings = <
+                              &mo 2              &mo 1
+                                                 &kp LALT
+
+&sy0                                             &mo 3
+&sz0                                             &mo 4
+           &kp LS(D)          &kp LC(D)
+&kp N7                                           &kp LGUI
+&kp LALT                                         &kp V
+
+           &ry90
+&rz90      &kp KP_DIVIDE      &rx90
+           &o0
+
+                              &kp LS(LC(LA(T)))
+&kp LS(L)  &kp LS(LC(LA(L)))                     &kp LS(LC(LA(R)))  &kp LS(R)
+                              &kp LS(LC(LA(B)))
+
+&kp L                         &kp RET                               &kp R
+            >;
+
+            sensor-bindings = <&inc_dec_kp LC(C_VOLUME_UP) LC(C_VOLUME_DOWN)>;
+        };
+
+        layer_2 {
+            display-name = "Numpad";
+            bindings = <
+                                  &mo 2            &mo 1
+                                                   &kp LALT
+
+&sy0                                               &mo 3
+&sz0                                               &mo 4
+                 &kp LS(L)        &kp LS(R)
+&kp KP_DIVIDE                                      &kp LALT
+&kp LALT                                           &kp KP_N3
+
+                 &kp KP_NUMBER_7
+&kp KP_NUMBER_1  &kp KP_DOT       &kp KP_NUMBER_9
+                 &kp KP_NUMBER_3
+
+                                  &kp LS(LC(T))
+&kp N4           &kp LS(LC(L))                     &kp LS(LC(R))  &kp N7
+                                  &kp LS(LC(B))
+
+&kp LS(L)                         &kp N7                          &kp LS(R)
+            >;
+
+            sensor-bindings = <&inc_dec_kp LC(TAB) LC(LS(TAB))>;
+        };
+
+        layer_3 {
+            display-name = "Numpad";
+            bindings = <
+                                  &mo 2            &mo 1
+                                                   &kp LALT
+
+&sy0                                               &mo 3
+&sz0                                               &mo 4
+                 &kp LS(L)        &kp LS(R)
+&kp KP_DIVIDE                                      &kp LALT
+&kp LALT                                           &kp KP_N3
+
+                 &kp KP_NUMBER_7
+&kp KP_NUMBER_1  &kp KP_DOT       &kp KP_NUMBER_9
+                 &kp KP_NUMBER_3
+
+                                  &kp LS(LC(T))
+&kp N5           &kp LS(LC(L))                     &kp LS(LC(R))  &kp N8
+                                  &kp LS(LC(B))
+
+&kp LS(LC(L))                     &kp PG_DN                       &kp LS(LC(R))
+            >;
+
+            sensor-bindings = <&inc_dec_kp LC(TAB) LC(LS(TAB))>;
+        };
+
+        layer_4 {
+            display-name = "Numpad";
+            bindings = <
+                          &mo 2      &mo 1
+                                     &kp LALT
+
+&kp Y                                &mo 3
+&kp Z                                &mo 4
+            &kp LC(C)     &kp LC(V)
+&kp LG(N1)                           &kp LALT
+&kp W                                &kp N4
+
+            &sz0
+&sy0        &kp RET       &sx0
+            &taskmanager
+
+                          &kp C
+&kp N7      &kp TAB                  &kp ESC   &kp N9
+                          &kp L
+
+&kp LA(L)                 &kp END              &kp LA(R)
+            >;
+
+            sensor-bindings = <&inc_dec_kp LC(Y) LC(Z)>;
+        };
+    };
+};
