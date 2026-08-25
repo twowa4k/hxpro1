@@ -14,6 +14,7 @@
             label = "SZ0";
         };
 
+
         sx0: sx0 {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
